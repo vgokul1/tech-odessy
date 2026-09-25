@@ -1,0 +1,250 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #0f172a;
+  --accent-color: #f59e0b;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --bg-subtle: #f8fafc;
+  --border-color: #e2e8f0;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-subtle);
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.main-content {
+  flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.5px;
+}
+
+.brand-icon {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Card Enhancements */
+.card {
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* Equipment Card Images */
+.equipment-card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  height: 210px;
+  background-color: #e2e8f0;
+}
+
+.equipment-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.equipment-card-img-wrap:hover .equipment-card-img {
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.25), transparent 60%);
+}
+
+/* Floating Compare Bar */
+.compare-floating-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1040;
+  background: #0f172a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* Rating Stars */
+.star-rating {
+  color: #fbbf24;
+}
+
+/* Dashboard Metric Cards */
+.metric-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+}
+
+.metric-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* Custom Badges */
+.badge-role-customer {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-role-owner {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-role-admin {
+  background-color: #ede9fe;
+  color: #6b21a8;
+}
+
+/* Status Badges */
+.badge-status-pending {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-status-confirmed {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badge-status-active {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.badge-status-returned {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.badge-status-cancelled, .badge-status-rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Category Pill & Icon Box */
+.category-box {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.category-box:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.08);
+}
+
+.category-icon-circle {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 12px;
+  background-color: #eff6ff;
+  color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+/* Notification Dropdown */
+.notification-menu {
+  width: 320px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+/* Availability Calendar / Date Range Preview */
+.availability-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
