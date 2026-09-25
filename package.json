@@ -1,23 +1,22 @@
 {
-  "name": "rentalhub-frontend",
-  "private": true,
+  "name": "rentalhub",
   "version": "1.0.0",
-  "type": "module",
+  "description": "RentalHub - Enterprise Equipment Rental Marketplace (MERN Stack)",
   "scripts": {
-    "dev": "vite --port 3000 --host",
-    "build": "vite build",
-    "preview": "vite preview"
+    "server": "npm start --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "test:e2e": "node backend/test_e2e.js"
   },
-  "dependencies": {
-    "axios": "^1.6.8",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.2.8"
-  }
+  "keywords": [
+    "mern",
+    "rental-marketplace",
+    "equipment-rental",
+    "react",
+    "bootstrap",
+    "express",
+    "mongodb"
+  ],
+  "author": "RentalHub Team",
+  "license": "MIT"
 }

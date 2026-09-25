@@ -1,65 +1,74 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import morgan from 'morgan';
-import connectDB from './config/db.js';
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorHandler');
 
-// Route imports
-import authRoutes from './routes/authRoutes.js';
-import categoryRoutes from './routes/categoryRoutes.js';
-import equipmentRoutes from './routes/equipmentRoutes.js';
-import bookingRoutes from './routes/bookingRoutes.js';
-import reviewRoutes from './routes/reviewRoutes.js';
-import dashboardRoutes from './routes/dashboardRoutes.js';
-import notificationRoutes from './routes/notificationRoutes.js';
-
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
-
-// Load environment variables
+// Load env vars
 dotenv.config();
 
-// Connect Database
+// Connect to MongoDB
 connectDB();
 
 const app = express();
 
 // Middleware
-app.use(express.json());
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  })
-);
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 // Health Check
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
+  res.json({
     status: 'online',
-    system: 'RentalHub Production Engine',
     timestamp: new Date().toISOString(),
+    service: 'RentalHub API',
+    environment: process.env.NODE_ENV || 'development',
   });
 });
 
-// Mount Routes
+// Route files
+const authRoutes = require('./routes/authRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const equipmentRoutes = require('./routes/equipmentRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
+// Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/equipment', equipmentRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/reviews', reviewRoutes);
-app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
+
+// 404 Handler
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: `API endpoint not found: ${req.method} ${req.originalUrl}`,
+  });
+});
 
 // Error handling middleware
-app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`[RentalHub API] Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`[RentalHub Server]: Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(`[RentalHub API Health]: http://localhost:${PORT}/api/health`);
 });
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.error(`Unhandled Rejection Error: ${err.message}`);
+});
+
+module.exports = app;
